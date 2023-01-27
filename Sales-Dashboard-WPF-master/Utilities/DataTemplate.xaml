@@ -1,0 +1,46 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:viewModel="clr-namespace:Sales_Dashboard.MVVM.ViewModel" 
+                    xmlns:view="clr-namespace:Sales_Dashboard.MVVM.View">
+
+    <DataTemplate DataType="{x:Type TypeName=viewModel:TableauBordViewModel}">
+        <view:TableauBordView/>
+    </DataTemplate>
+    
+    <DataTemplate DataType="{x:Type TypeName=viewModel:ArticlesViewModel}">
+        <view:ArticlesView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type TypeName=viewModel:VentesViewModel}">
+        <view:VentesView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type TypeName=viewModel:FacturesViewModel}">
+        <view:FacturesView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type TypeName=viewModel:ClientsViewModel}">
+        <view:ClientsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type TypeName=viewModel:FournisseurViewModel}">
+        <view:FournisseurView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type TypeName=viewModel:ReglementsViewModel}">
+        <view:ReglementsView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type TypeName=viewModel:AdministrationViewModel}">
+        <view:AdministrationView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type TypeName=viewModel:ReglagesViewModel}">
+        <view:ReglagesView/>
+    </DataTemplate>
+
+    <DataTemplate DataType="{x:Type TypeName=viewModel:SupportViewModel}">
+        <view:SupportView/>
+    </DataTemplate>
+
+</ResourceDictionary>
