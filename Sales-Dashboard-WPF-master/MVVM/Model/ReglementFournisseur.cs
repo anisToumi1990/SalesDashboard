@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sales_Dashboard.MVVM.Model;
 
@@ -17,8 +18,4 @@ public partial class ReglementFournisseur
     public decimal? Montant { get; set; }
 
     public DateTime? Echeance { get; set; }
-
-    public virtual Compte CodeCompteNavigation { get; set; }
-
-    public virtual Fournisseur CodeFournisseurNavigation { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sales_Dashboard.MVVM.Model;
 
@@ -37,8 +38,4 @@ public partial class LigneFacture
     public decimal? ValeurVente { get; set; }
 
     public decimal? ValeurAchat { get; set; }
-
-    public virtual Article CodeArticleNavigation { get; set; }
-
-    public virtual Famille CodeFamilleNavigation { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sales_Dashboard.MVVM.Model;
 
@@ -17,6 +18,4 @@ public partial class OperationFournisseur
     public string Nature { get; set; }
 
     public DateTime? Echeance { get; set; }
-
-    public virtual Fournisseur CodeFournisseurNavigation { get; set; }
 }

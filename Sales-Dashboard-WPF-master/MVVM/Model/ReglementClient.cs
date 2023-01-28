@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sales_Dashboard.MVVM.Model;
 
@@ -17,8 +18,4 @@ public partial class ReglementClient
     public DateTime? Date { get; set; }
 
     public DateTime? Echeance { get; set; }
-
-    public virtual Client CodeClientNavigation { get; set; }
-
-    public virtual Compte CodeCompteNavigation { get; set; }
 }

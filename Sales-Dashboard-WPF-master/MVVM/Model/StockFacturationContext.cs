@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 
 namespace Sales_Dashboard.MVVM.Model;
 
@@ -36,15 +38,13 @@ public partial class StockFacturationContext : DbContext
     public virtual DbSet<ReglementFournisseur> ReglementFournisseurs { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=LAPTOP-MQP5001E\\SQLEXPRESS;Initial Catalog=StockFacturation;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Article>(entity =>
         {
-            entity.HasKey(e => e.Code);
-
             entity.ToTable("Article");
 
             entity.Property(e => e.Code).HasMaxLength(11);
@@ -72,21 +72,12 @@ public partial class StockFacturationContext : DbContext
             entity.Property(e => e.Unite).HasMaxLength(2);
             entity.Property(e => e.ValeurEntree).HasColumnType("numeric(11, 3)");
             entity.Property(e => e.ValeurSortie).HasColumnType("numeric(11, 3)");
-
-            entity.HasOne(d => d.CodeFamilleNavigation).WithMany(p => p.Articles)
-                .HasForeignKey(d => d.CodeFamille)
-                .HasConstraintName("FK_Article_Famille");
         });
 
         modelBuilder.Entity<BonLivraison>(entity =>
         {
-            entity.HasKey(e => e.NumeroFacture);
-
             entity.ToTable("BonLivraison");
 
-            entity.Property(e => e.NumeroFacture)
-                .ValueGeneratedOnAdd()
-                .HasColumnType("numeric(7, 0)");
             entity.Property(e => e.BaseTva0)
                 .HasColumnType("numeric(11, 3)")
                 .HasColumnName("BaseTVA0");
@@ -111,6 +102,7 @@ public partial class StockFacturationContext : DbContext
                 .IsFixedLength();
             entity.Property(e => e.NomPassager).HasMaxLength(40);
             entity.Property(e => e.NumeroBonCommande).HasMaxLength(15);
+            entity.Property(e => e.NumeroFacture).HasColumnType("numeric(7, 0)");
             entity.Property(e => e.TotalAchat).HasColumnType("numeric(11, 3)");
             entity.Property(e => e.Tva0)
                 .HasColumnType("numeric(11, 3)")
@@ -124,20 +116,14 @@ public partial class StockFacturationContext : DbContext
             entity.Property(e => e.Tva7)
                 .HasColumnType("numeric(11, 3)")
                 .HasColumnName("TVA7");
-
-            entity.HasOne(d => d.CodeClientNavigation).WithMany(p => p.BonLivraisons)
-                .HasForeignKey(d => d.CodeClient)
-                .HasConstraintName("FK_BonLivraison_Client");
         });
 
         modelBuilder.Entity<Client>(entity =>
         {
-            entity.HasKey(e => e.Code);
-
             entity.ToTable("Client");
 
-            entity.Property(e => e.Code).HasMaxLength(5);
             entity.Property(e => e.Adresse).HasMaxLength(40);
+            entity.Property(e => e.Code).HasMaxLength(5);
             entity.Property(e => e.Email).HasMaxLength(20);
             entity.Property(e => e.ExonoreTva).HasColumnName("ExonoreTVA");
             entity.Property(e => e.Fax)
@@ -160,10 +146,9 @@ public partial class StockFacturationContext : DbContext
 
         modelBuilder.Entity<Compte>(entity =>
         {
-            entity.HasKey(e => e.Code);
-
             entity.ToTable("Compte");
 
+            entity.Property(e => e.Id).ValueGeneratedNever();
             entity.Property(e => e.Code).HasMaxLength(2);
             entity.Property(e => e.Credit).HasColumnType("numeric(11, 3)");
             entity.Property(e => e.Debit).HasColumnType("numeric(11, 3)");
@@ -177,8 +162,6 @@ public partial class StockFacturationContext : DbContext
 
         modelBuilder.Entity<Famille>(entity =>
         {
-            entity.HasKey(e => e.Code);
-
             entity.ToTable("Famille");
 
             entity.Property(e => e.Code).HasMaxLength(5);
@@ -187,12 +170,10 @@ public partial class StockFacturationContext : DbContext
 
         modelBuilder.Entity<Fournisseur>(entity =>
         {
-            entity.HasKey(e => e.Code);
-
             entity.ToTable("Fournisseur");
 
-            entity.Property(e => e.Code).HasMaxLength(5);
             entity.Property(e => e.Adresse).HasMaxLength(40);
+            entity.Property(e => e.Code).HasMaxLength(5);
             entity.Property(e => e.DomiciliationBancaire).HasMaxLength(20);
             entity.Property(e => e.Email).HasMaxLength(20);
             entity.Property(e => e.Fax).HasMaxLength(10);
@@ -244,14 +225,6 @@ public partial class StockFacturationContext : DbContext
                 .HasColumnName("TVA");
             entity.Property(e => e.ValeurAchat).HasColumnType("numeric(11, 3)");
             entity.Property(e => e.ValeurVente).HasColumnType("numeric(11, 3)");
-
-            entity.HasOne(d => d.CodeArticleNavigation).WithMany(p => p.LigneFactures)
-                .HasForeignKey(d => d.CodeArticle)
-                .HasConstraintName("FK_LigneFacture_Article");
-
-            entity.HasOne(d => d.CodeFamilleNavigation).WithMany(p => p.LigneFactures)
-                .HasForeignKey(d => d.CodeFamille)
-                .HasConstraintName("FK_LigneFacture_Famille");
         });
 
         modelBuilder.Entity<OperationClient>(entity =>
@@ -267,10 +240,6 @@ public partial class StockFacturationContext : DbContext
                 .HasMaxLength(1)
                 .IsUnicode(false)
                 .IsFixedLength();
-
-            entity.HasOne(d => d.CodeClientNavigation).WithMany(p => p.OperationClients)
-                .HasForeignKey(d => d.CodeClient)
-                .HasConstraintName("FK_OperationClient_Client");
         });
 
         modelBuilder.Entity<OperationFournisseur>(entity =>
@@ -286,10 +255,6 @@ public partial class StockFacturationContext : DbContext
                 .HasMaxLength(1)
                 .IsUnicode(false)
                 .IsFixedLength();
-
-            entity.HasOne(d => d.CodeFournisseurNavigation).WithMany(p => p.OperationFournisseurs)
-                .HasForeignKey(d => d.CodeFournisseur)
-                .HasConstraintName("FK_OperationFournisseur_Fournisseur");
         });
 
         modelBuilder.Entity<ReglementClient>(entity =>
@@ -302,14 +267,6 @@ public partial class StockFacturationContext : DbContext
             entity.Property(e => e.Echeance).HasColumnType("date");
             entity.Property(e => e.Libelle).HasMaxLength(40);
             entity.Property(e => e.Montant).HasColumnType("numeric(11, 3)");
-
-            entity.HasOne(d => d.CodeClientNavigation).WithMany(p => p.ReglementClients)
-                .HasForeignKey(d => d.CodeClient)
-                .HasConstraintName("FK_ReglementClient_Client");
-
-            entity.HasOne(d => d.CodeCompteNavigation).WithMany(p => p.ReglementClients)
-                .HasForeignKey(d => d.CodeCompte)
-                .HasConstraintName("FK_ReglementClient_Compte");
         });
 
         modelBuilder.Entity<ReglementFournisseur>(entity =>
@@ -322,14 +279,6 @@ public partial class StockFacturationContext : DbContext
             entity.Property(e => e.Echeance).HasColumnType("date");
             entity.Property(e => e.Libelle).HasMaxLength(40);
             entity.Property(e => e.Montant).HasColumnType("numeric(11, 3)");
-
-            entity.HasOne(d => d.CodeCompteNavigation).WithMany(p => p.ReglementFournisseurs)
-                .HasForeignKey(d => d.CodeCompte)
-                .HasConstraintName("FK_ReglementFournisseur_Compte");
-
-            entity.HasOne(d => d.CodeFournisseurNavigation).WithMany(p => p.ReglementFournisseurs)
-                .HasForeignKey(d => d.CodeFournisseur)
-                .HasConstraintName("FK_ReglementFournisseur_Fournisseur");
         });
 
         OnModelCreatingPartial(modelBuilder);

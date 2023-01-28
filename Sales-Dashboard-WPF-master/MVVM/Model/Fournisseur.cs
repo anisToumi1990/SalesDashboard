@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sales_Dashboard.MVVM.Model;
 
 public partial class Fournisseur
 {
+    public int Id { get; set; }
+
     public string Code { get; set; }
 
     public string Nom { get; set; }
@@ -35,8 +38,4 @@ public partial class Fournisseur
     public decimal? TotalCredit { get; set; }
 
     public decimal? Solde { get; set; }
-
-    public virtual ICollection<OperationFournisseur> OperationFournisseurs { get; } = new List<OperationFournisseur>();
-
-    public virtual ICollection<ReglementFournisseur> ReglementFournisseurs { get; } = new List<ReglementFournisseur>();
 }

@@ -1,10 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sales_Dashboard.MVVM.Model;
 
 public partial class BonLivraison
 {
-    public decimal NumeroFacture { get; set; }
+    public int Id { get; set; }
+
+    public decimal? NumeroFacture { get; set; }
 
     public string NumeroBonCommande { get; set; }
 
@@ -37,6 +40,4 @@ public partial class BonLivraison
     public decimal? TotalAchat { get; set; }
 
     public string NomPassager { get; set; }
-
-    public virtual Client CodeClientNavigation { get; set; }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace Sales_Dashboard.MVVM.Model;
 
@@ -19,6 +20,4 @@ public partial class OperationClient
     public bool? CodeDeclaration { get; set; }
 
     public DateTime? Echeance { get; set; }
-
-    public virtual Client CodeClientNavigation { get; set; }
 }

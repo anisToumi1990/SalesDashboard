@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sales_Dashboard.MVVM.Model;
 
 public partial class Article
 {
+    public int Id { get; set; }
+
     public string Code { get; set; }
 
     public string CodeFamille { get; set; }
@@ -41,8 +44,4 @@ public partial class Article
     public decimal? QuantiteSortie { get; set; }
 
     public decimal? ValeurSortie { get; set; }
-
-    public virtual Famille CodeFamilleNavigation { get; set; }
-
-    public virtual ICollection<LigneFacture> LigneFactures { get; } = new List<LigneFacture>();
 }

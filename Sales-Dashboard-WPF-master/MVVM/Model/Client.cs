@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Sales_Dashboard.MVVM.Model;
 
 public partial class Client
 {
+    public int Id { get; set; }
+
     public string Code { get; set; }
 
     public string Nom { get; set; }
@@ -37,10 +40,4 @@ public partial class Client
     public decimal? TotalCredit { get; set; }
 
     public decimal? Solde { get; set; }
-
-    public virtual ICollection<BonLivraison> BonLivraisons { get; } = new List<BonLivraison>();
-
-    public virtual ICollection<OperationClient> OperationClients { get; } = new List<OperationClient>();
-
-    public virtual ICollection<ReglementClient> ReglementClients { get; } = new List<ReglementClient>();
 }
