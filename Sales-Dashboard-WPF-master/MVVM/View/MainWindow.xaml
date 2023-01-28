@@ -163,7 +163,7 @@
 
                         <TextBlock Margin="15 0" VerticalAlignment="Center" Foreground="#868686" IsHitTestVisible="False" Panel.ZIndex="1" 
                                    Text="Cherchez ici ..." 
-                                   Visibility="{Binding Path=Text.IsEmpty, Converter={StaticResource BoolToVisConverter}, ElementName=textBoxSearch}" />
+                                   Visibility="{Binding Converter={StaticResource BoolToVisConverter}, ElementName=textBoxSearch}" />
 
                         <TextBox x:Name="textBoxSearch" Style="{StaticResource searchTextbox}" />
 
@@ -174,19 +174,16 @@
             </Border>
 
             <Grid Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="20 0 0 0">
-
-                <ContentControl x:Name="Pages"
-                                Content="{Binding CurrentView}" />
-
+                <ContentControl x:Name="Pages" Content="{Binding CurrentView}"/>
             </Grid>
 
             <Button x:Name="CloseApp" Grid.Column="2"
                 Style="{StaticResource ExitApp}"
                 Click="CloseApp_Click" />
 
-            <Button x:Name="MinimiseApp" Grid.Column="2"
+            <!--<Button x:Name="MinimiseApp" Grid.Column="2"
                 Style="{StaticResource MinimiseApp}"
-                Click="MinimiseApp_Click" Margin="0,15,60,0" />
+                Click="MinimiseApp_Click" Margin="0,15,60,0" />-->
         </Grid>
     </Border>
 

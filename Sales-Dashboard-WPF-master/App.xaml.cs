@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Sales_Dashboard.Core;
+﻿using Sales_Dashboard.Core;
 using Sales_Dashboard.MVVM.ViewModel;
 using System;
 using System.Collections.Generic;
