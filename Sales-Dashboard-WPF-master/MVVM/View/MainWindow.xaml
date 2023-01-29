@@ -35,8 +35,8 @@
             <Border Grid.RowSpan="3" CornerRadius="25">
                 <Border.Background>
                     <LinearGradientBrush>
-                        <GradientStop Color="#FB7154" Offset="0"/>
-                        <GradientStop Color="#FB6161" Offset="0.8"/>
+                        <GradientStop Color="{StaticResource GradientStopMenu1}" Offset="0"/>
+                        <GradientStop Color="{StaticResource GradientStopMenu2}" Offset="0.8"/>
                     </LinearGradientBrush>
                 </Border.Background>
 
@@ -45,18 +45,19 @@
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 10">
 
                         <Grid>
-                            <Border Background="#ffffff" CornerRadius="50" Width="35" Height="35"/>
+                            <Border Style="{StaticResource LogoBackground}"/>
+                            <Icon:PackIconMaterial Style="{StaticResource LogoIcon}"/>
 
-                            <Border Width="35" Height="35" BorderThickness="3" BorderBrush="#ffffff" CornerRadius="50">
+                            <!--<Border Width="35" Height="35" BorderThickness="3" BorderBrush="#ffffff" CornerRadius="50">
                                 <Border.Effect>
                                     <DropShadowEffect BlurRadius="10" Opacity="0.3"/>
                                 </Border.Effect>
 
                                 <Icon:PackIconMaterial Kind="Store" Width="20" Height="35" Foreground="#FB7154" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>
+                            </Border>-->
                         </Grid>
 
-                        <TextBlock Text="Client X" Foreground="#ffffff" FontSize="25" Margin="10 0 0 3">
+                        <TextBlock Text="Client X" Style="{StaticResource ClientName}">
                             <TextBlock.Effect>
                                 <DropShadowEffect BlurRadius="10" Opacity="0.3"/>
                             </TextBlock.Effect>
@@ -144,8 +145,8 @@
                         <Border Width="50" Height="50" CornerRadius="10" Margin="5 0 20 0">
                             <Border.Background>
                                 <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                    <GradientStop Color="#FB7456" Offset="0"/>
-                                    <GradientStop Color="#FA5654" Offset="1"/>
+                                    <GradientStop Color="{DynamicResource GradientStopMenu1}" Offset="0"/>
+                                    <GradientStop Color="{DynamicResource GradientStopMenu2}" Offset="1"/>
                                 </LinearGradientBrush>
                             </Border.Background>
 
@@ -153,8 +154,8 @@
                         </Border>
 
                         <StackPanel VerticalAlignment="Center">
-                            <TextBlock Text="Bonjour, Anis" Style="{StaticResource titleText}" FontSize="26" FontWeight="Bold"/>
-                            <TextBlock Text="Bonne journée" Foreground="#6C879A" Margin="0 3 0 0"/>
+                            <TextBlock Text="Bonjour, Anis" Style="{StaticResource titleText}" FontSize="25" FontWeight="Bold"/>
+                            <!--<TextBlock Text="Bonne journée" Foreground="#6C879A" Margin="0 3 0 0"/>-->
                         </StackPanel>
                     </StackPanel>
 

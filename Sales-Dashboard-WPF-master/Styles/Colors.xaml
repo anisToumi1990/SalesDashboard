@@ -1,0 +1,39 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:Icon="http://metro.mahapps.com/winfx/xaml/iconpacks">
+    
+    <!--#region GradientLeftMenuColors-->
+    <Color x:Key="GradientStopMenu1">#FB7154</Color>
+    <Color x:Key="GradientStopMenu2">#FB6161</Color>
+    <Color x:Key="GradientStopSearchImage1">#FB7456</Color>
+    <Color x:Key="GradientStopSearchImage2">#FA5654</Color>
+    <!--#endregion-->
+    
+    <!--#region Logo-->
+    <!--Background-->
+    <Style x:Key="LogoBackground" TargetType="Border">
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="CornerRadius" Value="50"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Width" Value="35"/>
+    </Style>
+    <!--Icon-->
+    <Style x:Key="LogoIcon" TargetType="Icon:PackIconMaterial">
+        <Setter Property="Kind" Value="Store"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="35"/>
+        <Setter Property="Foreground" Value="#FB7154"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+    </Style>
+    <!--#endregion-->
+
+    <!--#region Client_Name-->
+    <Style x:Key="ClientName" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="FontSize" Value="25"/>
+        <Setter Property="Margin" Value="10 0 0 3"/>
+    </Style>
+    <!--#endregion-->
+
+</ResourceDictionary>

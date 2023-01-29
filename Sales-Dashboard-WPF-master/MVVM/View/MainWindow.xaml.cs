@@ -9,7 +9,7 @@ namespace Sales_Dashboard
         public MainWindow()
         {
             InitializeComponent();
-            this.WindowState = WindowState.Maximized;
+            //this.WindowState = WindowState.Maximized;
         }
 
         private void Border_MouseDown(object sender, MouseButtonEventArgs e)

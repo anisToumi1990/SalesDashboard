@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Sales_Dashboard.MVVM.Model;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,13 @@ namespace Sales_Dashboard.MVVM.View
         public FournisseurView()
         {
             InitializeComponent();
+
+            using (StockFacturationContext context = new StockFacturationContext())
+            {
+                List<Fournisseur> fournisseurs = context.Fournisseurs.ToList();
+                ObservableCollection<Fournisseur> fournisseurCollection = new ObservableCollection<Fournisseur>(fournisseurs);
+                membersDataGrid.ItemsSource = fournisseurCollection;
+            }
         }
     }
 }
