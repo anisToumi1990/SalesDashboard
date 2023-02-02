@@ -11,6 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Input;
@@ -29,13 +30,6 @@ namespace Sales_Dashboard.MVVM.View
         public ArticlesView()
         {
             InitializeComponent();
-
-            using (StockFacturationContext context = new StockFacturationContext())
-            {
-                List<Article> articles = context.Articles.ToList();
-                ObservableCollection<Article> artictleCollection = new ObservableCollection<Article>(articles);
-                membersDataGrid.ItemsSource = artictleCollection;
-            }
         }
     }
 }

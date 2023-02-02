@@ -9,47 +9,47 @@ namespace Sales_Dashboard
         public MainWindow()
         {
             InitializeComponent();
-            //this.WindowState = WindowState.Maximized;
+            this.WindowState = WindowState.Maximized;
         }
 
-        private void Border_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ChangedButton == MouseButton.Left)
-            {
-                this.DragMove();
-            }
-        }
+        //private void Border_MouseDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (e.ChangedButton == MouseButton.Left)
+        //    {
+        //        this.DragMove();
+        //    }
+        //}
 
-        private bool IsMaximize = false;
-        private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            if (e.ClickCount == 2)
-            {
-                if (IsMaximize)
-                {
-                    this.WindowState = WindowState.Normal;
-                    this.Width = 1280;
-                    this.Height = 780;
+        //private bool IsMaximize = false;
+        //private void Border_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        //{
+        //    if (e.ClickCount == 2)
+        //    {
+        //        if (IsMaximize)
+        //        {
+        //            this.WindowState = WindowState.Normal;
+        //            this.Width = 1280;
+        //            this.Height = 780;
 
-                    IsMaximize = false;
-                }
-                else
-                {
-                    this.WindowState = WindowState.Maximized;
+        //            IsMaximize = false;
+        //        }
+        //        else
+        //        {
+        //            this.WindowState = WindowState.Maximized;
 
-                    IsMaximize = true;
-                }
-            }
-        }
+        //            IsMaximize = true;
+        //        }
+        //    }
+        //}
 
         private void CloseApp_Click(object sender, RoutedEventArgs e)
         {
             Close();
         }
 
-        private void MinimiseApp_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
+        //private void MinimiseApp_Click(object sender, RoutedEventArgs e)
+        //{
+        //    this.WindowState = WindowState.Minimized;
+        //}
     }
 }

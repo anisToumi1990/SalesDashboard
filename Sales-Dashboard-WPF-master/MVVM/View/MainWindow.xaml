@@ -17,7 +17,7 @@
         <vm:MainViewModel/>
     </Window.DataContext>
 
-    <Border CornerRadius="25" Padding="20" Background="#F7F6F4" MouseDown="Border_MouseDown" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+    <Border CornerRadius="25" Padding="20" Background="#F7F6F4">
         <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="220"/>
