@@ -1,5 +1,6 @@
 ﻿using Sales_Dashboard.Core;
 using Sales_Dashboard.MVVM.Model;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -18,6 +19,28 @@ namespace Sales_Dashboard.MVVM.ViewModel
             { 
                 _lstArticles = value;
                 OnPropertyChanged(nameof(LstArticles));
+            }
+        }
+
+        private ObservableCollection<Famille> _lstFamilleArticles;
+        public ObservableCollection<Famille> LstFamilleArticles
+        {
+            get { return _lstFamilleArticles; }
+            set
+            {
+                _lstFamilleArticles = value;
+                OnPropertyChanged(nameof(_lstFamilleArticles));
+            }
+        }
+
+        private ObservableCollection<Fournisseur> _lstFournisseurs;
+        public ObservableCollection<Fournisseur> LstFournisseurs
+        {
+            get { return _lstFournisseurs; }
+            set
+            {
+                _lstFournisseurs = value;
+                OnPropertyChanged(nameof(_lstFournisseurs));
             }
         }
 
@@ -65,6 +88,17 @@ namespace Sales_Dashboard.MVVM.ViewModel
             }
         }
 
+        private bool _isFamilleArticleAddPopup;
+        public bool IsFamilleArticleAddPopup
+        {
+            get { return _isFamilleArticleAddPopup; }
+            set
+            {
+                _isFamilleArticleAddPopup = value;
+                OnPropertyChanged(nameof(IsFamilleArticleAddPopup));
+            }
+        }
+
         private bool _isArticlesEnabled;
         public bool IsArticlesEnabled
         {
@@ -87,6 +121,28 @@ namespace Sales_Dashboard.MVVM.ViewModel
             }
         }
 
+        private string _filterFamille;
+        public string FilterFamille
+        {
+            get { return _filterFamille; }
+            set 
+            { 
+                _filterFamille = value;
+                OnPropertyChanged(nameof(FilterFamille));
+            }
+        }
+
+        private string _filterFournisseur;
+        public string FilterFournisseur
+        {
+            get { return _filterFournisseur; }
+            set 
+            { 
+                _filterFournisseur = value;
+                OnPropertyChanged(nameof(FilterFournisseur));
+            }
+        }
+
         public ICommand DeleteArticleCommand { get; set; }
         public ICommand UpdateCommand { get; set; }
         public ICommand UpdateArticleCommand { get; set; }
@@ -94,12 +150,17 @@ namespace Sales_Dashboard.MVVM.ViewModel
         public ICommand AddCommand { get; set; }
         public ICommand AddArticleCommand { get; set; }
         public ICommand CloseAddArticleCommand { get; set; }
+        public ICommand FilterCommand { get; set; }
+        public ICommand CancelFilterCommand { get; set; }
+
         #endregion
 
         public ArticlesViewModel()
         {
             InitFocus();
             LoadArticles();
+            LoadFamilleArticles();
+            LoadFournisseurArticles();
             InstanciateCommands();
         }
 
@@ -110,6 +171,22 @@ namespace Sales_Dashboard.MVVM.ViewModel
             {
                 List<Article> articles = context.Articles.ToList();
                 LstArticles = new ObservableCollection<Article>(articles);
+            }
+        }
+        public void LoadFamilleArticles()
+        {
+            using (StockFacturationContext context = new StockFacturationContext())
+            {
+                List<Famille> familleArticles = context.Familles.ToList();
+                LstFamilleArticles = new ObservableCollection<Famille>(familleArticles);
+            }
+        }
+        public void LoadFournisseurArticles()
+        {
+            using (StockFacturationContext context = new StockFacturationContext())
+            {
+                List<Fournisseur> fournisseurs = context.Fournisseurs.ToList();
+                LstFournisseurs = new ObservableCollection<Fournisseur>(fournisseurs);
             }
         }
         private void Delete(object obj)
@@ -135,6 +212,13 @@ namespace Sales_Dashboard.MVVM.ViewModel
                 if (art != null)
                 {
                     art.Designation = SelectedArticle.Designation;
+                    art.CodeFamille = SelectedArticle.CodeFamille;
+                    art.CodeFournisseur = SelectedArticle.CodeFournisseur;
+                    art.Code = SelectedArticle.Code;
+                    art.Unite = SelectedArticle.Unite;
+                    art.PrixAchat = SelectedArticle.PrixAchat;
+                    art.PrixVenteHt = SelectedArticle.PrixVenteHt;
+                    art.PrixTtc = SelectedArticle.PrixTtc;
                 }
                 context.SaveChanges();
             }
@@ -143,6 +227,7 @@ namespace Sales_Dashboard.MVVM.ViewModel
         private void CloseUpdateArticle(object obj)
         {
             LoadArticles();
+            Filter(null);
             SwitchFocusUpdate();
         }
         private void Add(object obj)
@@ -166,6 +251,33 @@ namespace Sales_Dashboard.MVVM.ViewModel
             NewArticle = new Article();
             SwitchFocusAdd();
         }
+        private void Filter(object obj)
+        {
+            using (StockFacturationContext context = new StockFacturationContext())
+            {
+                if (FilterFamille != null && FilterFournisseur != null)
+                {
+                    List<Article> articles = context.Articles.Where(x => (x.CodeFamille == FilterFamille && x.CodeFournisseur == FilterFournisseur)).ToList();
+                    LstArticles = new ObservableCollection<Article>(articles);
+                }
+                else if (FilterFamille != null)
+                {
+                    List<Article> articles = context.Articles.Where(x => x.CodeFamille == FilterFamille).ToList();
+                    LstArticles = new ObservableCollection<Article>(articles);
+                }
+                else if (FilterFournisseur != null)
+                {
+                    List<Article> articles = context.Articles.Where(x => x.CodeFournisseur == FilterFournisseur).ToList();
+                    LstArticles = new ObservableCollection<Article>(articles);
+                }
+            }
+        }
+        private void CancelFilter(object obj)
+        {
+            FilterFamille = null;
+            FilterFournisseur = null;
+            LoadArticles();
+        }
         #endregion
 
         #region Utilities
@@ -178,10 +290,13 @@ namespace Sales_Dashboard.MVVM.ViewModel
             AddCommand = new RelayCommand(Add, (s) => true);
             AddArticleCommand = new RelayCommand(AddArticle, (s) => true);
             CloseAddArticleCommand = new RelayCommand(CloseAddArticle, (s) => true);
+            FilterCommand = new RelayCommand(Filter, (s) => true);
+            CancelFilterCommand = new RelayCommand(CancelFilter, (s) => true);
         }
         private void InitFocus()
         {
             IsArticleAddPopup = false;
+            IsFamilleArticleAddPopup = false;
             IsArticleEditPopup = false;
             IsArticlesEnabled = true;
             ArticlesOpacity = 1.0;

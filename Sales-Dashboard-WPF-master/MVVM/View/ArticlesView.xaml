@@ -15,7 +15,8 @@
     
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="11*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="149*"/>
             <ColumnDefinition Width="149*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -25,19 +26,85 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+
+        <Border Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource whiteBorder}" Margin="-10,0,0,0" IsEnabled="{Binding IsArticlesEnabled}">
+            <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="200"/>
+                        <ColumnDefinition Width="50"/>
+                        <ColumnDefinition Width="200"/>
+                    </Grid.ColumnDefinitions>
+                    <!--<Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>-->
+
+                    <StackPanel Grid.Column="0">
+                        <TextBlock Text="Famille de l'article" FontSize="13" Margin="0 0 0 8"/>
+                        <ComboBox ItemsSource="{Binding LstFamilleArticles}"
+                                      DisplayMemberPath="Libelle"
+                                      SelectedValuePath="Code"
+                                  SelectedValue="{Binding Path=FilterFamille}"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="2">
+                        <TextBlock Text="Fournisseur de l'article" FontSize="13" Margin="0 0 0 8"/>
+                        <ComboBox ItemsSource="{Binding LstFournisseurs}"
+                                      DisplayMemberPath="Nom"
+                                      SelectedValuePath="Code"
+                                      SelectedValue="{Binding Path=FilterFournisseur}"/>
+                    </StackPanel>
+
+                    <!--<TextBlock Text="Famille d'article : " Grid.Column="0" Width="auto" VerticalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding LstFamilleArticles}" DisplayMemberPath="Libelle" SelectedValuePath="Code" 
+                          Grid.Column="1" Width="auto"/>
+                    <TextBlock Text="Fournisseur : " Grid.Column="2" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <ComboBox ItemsSource="{Binding LstFournisseurs}" DisplayMemberPath="Nom" SelectedValuePath="Code" 
+                          Grid.Column="3" Width="auto"/>-->
+                    <!--Filter Button-->
+                    <Button
+                        Opacity="{Binding ArticlesOpacity}" IsEnabled="{Binding IsArticlesEnabled}" Style="{StaticResource filterButton}"
+                        Command="{Binding DataContext.FilterCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" CommandParameter="{Binding}" 
+                        HorizontalAlignment="Center" Grid.Column="4" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="Filter" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                            <TextBlock Text="Filtrer les articles"/>
+                        </StackPanel>
+                    </Button>
+                    <!--Cancel Filter Button-->
+                    <Button
+                        Opacity="{Binding ArticlesOpacity}" IsEnabled="{Binding IsArticlesEnabled}" Style="{StaticResource filterButton}"
+                        Command="{Binding DataContext.CancelFilterCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                        CommandParameter="{Binding}" HorizontalAlignment="Center" Grid.Column="6" Grid.ColumnSpan="2">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="FilterOff" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
+                            <TextBlock Text="Annuler les filtres"/>
+                        </StackPanel>
+                    </Button>
+
+                </Grid>
+            </StackPanel>
+        </Border>
         
-        <!--Add Button-->
+        <!--Add Article Button-->
         <Button Opacity="{Binding ArticlesOpacity}" IsEnabled="{Binding IsArticlesEnabled}" Style="{StaticResource addButton}"
-            Command="{Binding DataContext.AddCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
-            CommandParameter="{Binding}" Grid.Column="1" Grid.RowSpan="2">
+                        Command="{Binding DataContext.AddCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}"
+                        CommandParameter="{Binding}" Grid.Column="2" Grid.RowSpan="2">
             <StackPanel Orientation="Horizontal">
                 <Icon:PackIconMaterial Kind="Plus" VerticalAlignment="Center" Margin="0 1 8 0" Width="11" Height="11"/>
                 <TextBlock Text="Ajouter un nouveau article"/>
             </StackPanel>
         </Button>
-        
+
         <!--Articles Data Grid-->
-        <DataGrid Opacity="{Binding ArticlesOpacity}" IsEnabled="{Binding IsArticlesEnabled}" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" Height="520" VerticalAlignment="Top" Margin="0,10,0,0" ItemsSource="{Binding LstArticles}" Grid.ColumnSpan="2" Grid.Row="3">
+        <DataGrid Opacity="{Binding ArticlesOpacity}" IsEnabled="{Binding IsArticlesEnabled}" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" Height="520" VerticalAlignment="Top" Margin="0,10,0,0" ItemsSource="{Binding LstArticles}" Grid.ColumnSpan="3" Grid.Row="3">
             <DataGrid.Columns>
 
                 <DataGridTextColumn Header="Famille d'article" Binding="{Binding CodeFamille}" IsReadOnly="True" Width="*"/>
@@ -70,28 +137,97 @@
         </DataGrid>
 
         <!--Edit Article Popup-->
-        <Popup x:Name="popup_uc" AllowsTransparency="True" HorizontalOffset="10" VerticalOffset="10" Placement="Center" IsOpen="{Binding IsArticleEditPopup}" Grid.ColumnSpan="2" Margin="0,0,0,55" Grid.RowSpan="2">
-            <Grid HorizontalAlignment="Center" VerticalAlignment="Center" Width="800" Height="450">
-                <Border Style="{StaticResource whiteBorder}" Margin="0,10,0,0">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="250*"/>
-                            <ColumnDefinition Width="300*"/>
-                            <ColumnDefinition Width="125*"/>
-                            <ColumnDefinition Width="125*"/>
-                        </Grid.ColumnDefinitions>
+        <Popup AllowsTransparency="True" HorizontalOffset="10" VerticalOffset="-25" Placement="Center" IsOpen="{Binding IsArticleEditPopup}" Grid.ColumnSpan="2" 
+               Margin="0,0,0,55" Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="800" Height="450">
+            <Grid VerticalAlignment="Center" Margin="10 0 10 0">
+                <!--Main Layer-->
+                <Border CornerRadius="15" Background="#ffffff" >
+                    <Border.Effect>
+                        <DropShadowEffect Direction="-130" BlurRadius="30" ShadowDepth="5" Opacity="0.1"/>
+                    </Border.Effect>
+
+                    <Grid Margin="20 0">
                         <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
 
-                        <TextBlock Grid.ColumnSpan="2" Text="Modifier l'article" Foreground="Black" FontSize="35" HorizontalAlignment="Center" VerticalAlignment="Center" Height="47" Width="250"/>
-                        <TextBlock Grid.Row="1" Text="Libelle de l'article" Foreground="Black" FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Height="34" Width="202"/>
-                        <TextBox Grid.Column="1" Grid.Row="1" Background="Gray" FontSize="25" Foreground="Black" HorizontalAlignment="Center" Text="{Binding SelectedArticle.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Center" Height="40" Width="250"/>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
 
-                        <Button Grid.Column="2" Grid.Row="2" Content="Valider" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding DataContext.UpdateArticleCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" CommandParameter="{Binding}"/>
-                        <Button Grid.Column="3" Grid.Row="2" Content="Annuler" FontSize="30" HorizontalAlignment="Center" VerticalAlignment="Center" Command="{Binding DataContext.CloseUpdateArticleCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" CommandParameter="{Binding}"/>
+                        <!--Form Title-->
+                        <StackPanel Orientation="Horizontal" Margin="0 20 0 0">
+                            <TextBlock Text="Modifier l'article" Foreground="Black" FontSize="20" Margin="15 0 0 0"/>
+                        </StackPanel>
+
+                        <Separator Grid.Row="1" Grid.ColumnSpan="2" Height="0.7" Margin="-20 20 -20 20" Background="#E1E6EB"/>
+
+                        <!--Inputs-->
+                        <StackPanel Margin="20 10" Grid.Column="0" Grid.Row="2">
+                            <TextBlock Text="Libelle de l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox Text="{Binding SelectedArticle.Designation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10" Grid.Column="0" Grid.Row="3">
+                            <TextBlock Text="Famille de l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
+                            <ComboBox ItemsSource="{Binding LstFamilleArticles}"
+                                      DisplayMemberPath="Libelle"
+                                      SelectedValuePath="Code"
+                                      SelectedValue="{Binding Path=SelectedArticle.CodeFamille}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10" Grid.Column="0" Grid.Row="4">
+                            <TextBlock Text="Fournisseur de l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
+                            <ComboBox ItemsSource="{Binding LstFournisseurs}"
+                                      DisplayMemberPath="Nom"
+                                      SelectedValuePath="Code"
+                                      SelectedValue="{Binding Path=SelectedArticle.CodeFournisseur}"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10" Grid.Column="0" Grid.Row="5">
+                            <TextBlock Text="Code de l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox Text="{Binding SelectedArticle.Code, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10" Grid.Column="1" Grid.Row="2">
+                            <TextBlock Text="Unité de l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox Text="{Binding SelectedArticle.Unite, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10" Grid.Column="1" Grid.Row="3">
+                            <TextBlock Text="Prix d'achat de l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox Text="{Binding SelectedArticle.PrixAchat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, StringFormat=N3}" FontSize="16"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10" Grid.Column="1" Grid.Row="4">
+                            <TextBlock Text="Prix de vente HT de l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox Text="{Binding SelectedArticle.PrixVenteHt, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="20 10" Grid.Column="1" Grid.Row="5">
+                            <TextBlock Text="Prix TTC l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBox Text="{Binding SelectedArticle.PrixTtc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+                        </StackPanel>
+
+                        <!--Form Bottom Background-->
+                        <Border Grid.Row="6" Grid.ColumnSpan="2" Height="80" Background="#f6f6f6" CornerRadius="0 0 10 10" Margin="-20 0 -20 0"/>
+
+                        <!--Main Button-->
+                        <Button Grid.Column="1" Grid.Row="6" Content="Enregistrer" HorizontalAlignment="Right" Style="{StaticResource mainButton}" Command="{Binding DataContext.UpdateArticleCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" CommandParameter="{Binding}">
+                            <Button.Effect>
+                                <DropShadowEffect Direction="-120" BlurRadius="10" Opacity="0.3" ShadowDepth="5" Color="#4880FF"/>
+                            </Button.Effect>
+                        </Button>
+
+                        <!--Secondary Button-->
+                        <Button Grid.Row="6" Content="Annuler" HorizontalAlignment="Left" Width="150" Style="{StaticResource secondaryButton}" Command="{Binding DataContext.CloseUpdateArticleCommand, RelativeSource={RelativeSource AncestorType={x:Type Grid}}}" CommandParameter="{Binding}"/>
 
                     </Grid>
                 </Border>
@@ -140,12 +276,18 @@
 
                         <StackPanel Margin="20 10" Grid.Column="0" Grid.Row="3">
                             <TextBlock Text="Code de la famille de l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
-                            <TextBox Text="{Binding NewArticle.CodeFamille, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+                            <ComboBox ItemsSource="{Binding LstFamilleArticles}"
+                                      DisplayMemberPath="Libelle"
+                                      SelectedValuePath="Code"
+                                      SelectedValue="{Binding Path=NewArticle.CodeFamille}"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10" Grid.Column="0" Grid.Row="4">
                             <TextBlock Text="Fournisseur de l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
-                            <TextBox Text="{Binding NewArticle.CodeFournisseur, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
+                            <ComboBox ItemsSource="{Binding LstFournisseurs}"
+                                      DisplayMemberPath="Nom"
+                                      SelectedValuePath="Code"
+                                      SelectedValue="{Binding Path=NewArticle.CodeFournisseur}"/>
                         </StackPanel>
 
                         <StackPanel Margin="20 10" Grid.Column="0" Grid.Row="5">
@@ -169,7 +311,7 @@
                         </StackPanel>
 
                         <StackPanel Margin="20 10" Grid.Column="1" Grid.Row="5">
-                            <TextBlock Text="Prix TTC1 l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
+                            <TextBlock Text="Prix TTC l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
                             <TextBox Text="{Binding NewArticle.PrixTtc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
                         </StackPanel>
                         
@@ -192,7 +334,7 @@
         </Popup>
 
         <!--Pagingation Section-->
-        <Border Opacity="{Binding ArticlesOpacity}" IsEnabled="{Binding IsArticlesEnabled}" Grid.Row="4" HorizontalAlignment="Center" BorderBrush="#DEE4EC" BorderThickness="1" CornerRadius="5" Padding="5" Background="#ffffff" RenderTransformOrigin="0.5,0.5" Width="320" Height="40" VerticalAlignment="Center" Margin="0 50 0 0"  Grid.ColumnSpan="2">
+        <!--<Border Opacity="{Binding ArticlesOpacity}" IsEnabled="{Binding IsArticlesEnabled}" Grid.Row="4" HorizontalAlignment="Center" BorderBrush="#DEE4EC" BorderThickness="1" CornerRadius="5" Padding="5" Background="#ffffff" RenderTransformOrigin="0.5,0.5" Width="320" Height="40" VerticalAlignment="Center" Margin="0 50 0 0"  Grid.ColumnSpan="2">
             <Border.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform ScaleX="1"/>
@@ -222,6 +364,7 @@
                     <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource pagingButtonIcon}"/>
                 </Button>
             </StackPanel>
-        </Border>
+        </Border>-->
+    
     </Grid>
 </UserControl>
