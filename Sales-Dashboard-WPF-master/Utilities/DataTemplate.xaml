@@ -6,6 +6,10 @@
     <DataTemplate DataType="{x:Type TypeName=viewModel:TableauBordViewModel}">
         <view:TableauBordView/>
     </DataTemplate>
+
+    <DataTemplate DataType="{x:Type TypeName=viewModel:FamilleArticlesViewModel}">
+        <view:FamilleArticlesView/>
+    </DataTemplate>
     
     <DataTemplate DataType="{x:Type TypeName=viewModel:ArticlesViewModel}">
         <view:ArticlesView/>

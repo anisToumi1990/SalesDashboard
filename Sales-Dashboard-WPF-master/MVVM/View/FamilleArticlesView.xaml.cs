@@ -1,8 +1,5 @@
-﻿using Sales_Dashboard.MVVM.Model;
-using Sales_Dashboard.MVVM.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,11 +16,11 @@ using System.Windows.Shapes;
 namespace Sales_Dashboard.MVVM.View
 {
     /// <summary>
-    /// Interaction logic for FournisseurView.xaml
+    /// Interaction logic for FamilleArticlesView.xaml
     /// </summary>
-    public partial class FournisseurView : UserControl
+    public partial class FamilleArticlesView : UserControl
     {
-        public FournisseurView()
+        public FamilleArticlesView()
         {
             InitializeComponent();
         }

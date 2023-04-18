@@ -43,21 +43,11 @@
                 <StackPanel>
                     <!--Logo-->
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0 30 0 10">
-
                         <Grid>
                             <Border Style="{StaticResource LogoBackground}"/>
                             <Icon:PackIconMaterial Style="{StaticResource LogoIcon}"/>
-
-                            <!--<Border Width="35" Height="35" BorderThickness="3" BorderBrush="#ffffff" CornerRadius="50">
-                                <Border.Effect>
-                                    <DropShadowEffect BlurRadius="10" Opacity="0.3"/>
-                                </Border.Effect>
-
-                                <Icon:PackIconMaterial Kind="Store" Width="20" Height="35" Foreground="#FB7154" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            </Border>-->
                         </Grid>
-
-                        <TextBlock Text="Client X" Style="{StaticResource ClientName}">
+                        <TextBlock Style="{StaticResource ClientName}">
                             <TextBlock.Effect>
                                 <DropShadowEffect BlurRadius="10" Opacity="0.3"/>
                             </TextBlock.Effect>
@@ -74,6 +64,13 @@
                         </StackPanel>
                     </RadioButton>
 
+                    <RadioButton Style="{StaticResource menuButton}" Command="{Binding FamilleArticlesViewCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Icon:PackIconMaterial Kind="ShoppingSearch" Style="{StaticResource menuButtonIcon}"/>
+                            <TextBlock Text="Famille d'articles" Style="{StaticResource menuButtonText}"/>
+                        </StackPanel>
+                    </RadioButton>
+                    
                     <RadioButton Style="{StaticResource menuButton}" Command="{Binding ArticlesViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="ShoppingOutline" Style="{StaticResource menuButtonIcon}"/>
@@ -94,24 +91,28 @@
                             <TextBlock Text="Factures" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
+                    
                     <RadioButton Style="{StaticResource menuButton}" Command="{Binding ClientsViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="AccountMultipleOutline" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Clients" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
+                    
                     <RadioButton Style="{StaticResource menuButton}" Command="{Binding FournisseurViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="AccountTieOutline" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Fournisseur" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
+                    
                     <RadioButton Style="{StaticResource menuButton}" Command="{Binding ReglementsViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="CashMultiple" Style="{StaticResource menuButtonIcon}"/>
                             <TextBlock Text="Réglements" Style="{StaticResource menuButtonText}"/>
                         </StackPanel>
                     </RadioButton>
+                    
                     <RadioButton Style="{StaticResource menuButton}" Command="{Binding AdministrationViewCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Icon:PackIconMaterial Kind="AccountCheckOutline" Style="{StaticResource menuButtonIcon}"/>

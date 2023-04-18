@@ -18,6 +18,7 @@ namespace Sales_Dashboard.MVVM.ViewModel
         }
 
         public ICommand TableauBordViewCommand { get; set; }
+        public ICommand FamilleArticlesViewCommand { get; set; }
         public ICommand ArticlesViewCommand { get; set; }
         public ICommand VentesViewCommand { get; set; }
         public ICommand FacturesViewCommand { get; set; }
@@ -29,6 +30,7 @@ namespace Sales_Dashboard.MVVM.ViewModel
         public ICommand SupportViewCommand { get; set; }
 
         private void TableauBord(object obj) => CurrentView = new TableauBordViewModel();
+        private void FamilleArticles(object obj) => CurrentView = new FamilleArticlesViewModel();
         private void Articles(object obj) => CurrentView = new ArticlesViewModel();
         private void Ventes(object obj) => CurrentView = new VentesViewModel();
         private void Factures(object obj) => CurrentView = new FacturesViewModel();
@@ -42,6 +44,7 @@ namespace Sales_Dashboard.MVVM.ViewModel
         public MainViewModel()
         {
             TableauBordViewCommand = new RelayCommand(TableauBord);
+            FamilleArticlesViewCommand = new RelayCommand(FamilleArticles);
             ArticlesViewCommand = new RelayCommand(Articles);
             VentesViewCommand = new RelayCommand(Ventes);
             FacturesViewCommand = new RelayCommand(Factures);

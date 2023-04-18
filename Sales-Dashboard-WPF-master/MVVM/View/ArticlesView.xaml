@@ -27,6 +27,7 @@
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
 
+        <!--Filter Region-->
         <Border Grid.Column="1" Grid.ColumnSpan="2" Style="{StaticResource whiteBorder}" Margin="-10,0,0,0" IsEnabled="{Binding IsArticlesEnabled}">
             <StackPanel Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Bottom">
                 <Grid>
@@ -41,10 +42,6 @@
                         <ColumnDefinition Width="50"/>
                         <ColumnDefinition Width="200"/>
                     </Grid.ColumnDefinitions>
-                    <!--<Grid.RowDefinitions>
-                        <RowDefinition Height="auto"/>
-                        <RowDefinition Height="auto"/>
-                    </Grid.RowDefinitions>-->
 
                     <StackPanel Grid.Column="0">
                         <TextBlock Text="Famille de l'article" FontSize="13" Margin="0 0 0 8"/>
@@ -62,12 +59,6 @@
                                       SelectedValue="{Binding Path=FilterFournisseur}"/>
                     </StackPanel>
 
-                    <!--<TextBlock Text="Famille d'article : " Grid.Column="0" Width="auto" VerticalAlignment="Center"/>
-                    <ComboBox ItemsSource="{Binding LstFamilleArticles}" DisplayMemberPath="Libelle" SelectedValuePath="Code" 
-                          Grid.Column="1" Width="auto"/>
-                    <TextBlock Text="Fournisseur : " Grid.Column="2" Width="auto" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                    <ComboBox ItemsSource="{Binding LstFournisseurs}" DisplayMemberPath="Nom" SelectedValuePath="Code" 
-                          Grid.Column="3" Width="auto"/>-->
                     <!--Filter Button-->
                     <Button
                         Opacity="{Binding ArticlesOpacity}" IsEnabled="{Binding IsArticlesEnabled}" Style="{StaticResource filterButton}"
@@ -107,7 +98,7 @@
         <DataGrid Opacity="{Binding ArticlesOpacity}" IsEnabled="{Binding IsArticlesEnabled}" RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}" Style="{DynamicResource DataGridStyle1}" Height="520" VerticalAlignment="Top" Margin="0,10,0,0" ItemsSource="{Binding LstArticles}" Grid.ColumnSpan="3" Grid.Row="3">
             <DataGrid.Columns>
 
-                <DataGridTextColumn Header="Famille d'article" Binding="{Binding CodeFamille}" IsReadOnly="True" Width="*"/>
+                <DataGridTextColumn Header="Famille d'article" Binding="{Binding CodeFamille}"  IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Header="Libelle" Binding="{Binding Designation}" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Header="Fournisseur" Binding="{Binding CodeFournisseur}" IsReadOnly="True" Width="*"/>
                 <DataGridTextColumn Header="Unite" Binding="{Binding Unite}" IsReadOnly="True" Width="*"/>
@@ -314,7 +305,7 @@
                             <TextBlock Text="Prix TTC l'article" Foreground="#97A5B4" FontSize="13" Margin="0 0 0 8"/>
                             <TextBox Text="{Binding NewArticle.PrixTtc, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" FontSize="16"/>
                         </StackPanel>
-                        
+
                         <!--Form Bottom Background-->
                         <Border Grid.Row="6" Grid.ColumnSpan="2" Height="80" Background="#f6f6f6" CornerRadius="0 0 10 10" Margin="-20 0 -20 0"/>
 
@@ -332,39 +323,6 @@
                 </Border>
             </Grid>
         </Popup>
-
-        <!--Pagingation Section-->
-        <!--<Border Opacity="{Binding ArticlesOpacity}" IsEnabled="{Binding IsArticlesEnabled}" Grid.Row="4" HorizontalAlignment="Center" BorderBrush="#DEE4EC" BorderThickness="1" CornerRadius="5" Padding="5" Background="#ffffff" RenderTransformOrigin="0.5,0.5" Width="320" Height="40" VerticalAlignment="Center" Margin="0 50 0 0"  Grid.ColumnSpan="2">
-            <Border.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform ScaleX="1"/>
-                    <SkewTransform/>
-                    <RotateTransform/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Border.RenderTransform>
-            <StackPanel Orientation="Horizontal">
-                <Button Style="{StaticResource pagingButton}">
-                    <Icon:PackIconMaterial Kind="ChevronLeft" Style="{StaticResource pagingButtonIcon}"/>
-                </Button>
-                <Rectangle Width="1" Fill="#DEE4EC" Margin="3 7"/>
-
-                <Button Style="{StaticResource pagingButton}" Content="1"/>
-                <Button Style="{StaticResource pagingButton}" Content="2" Background="#7950F2" Foreground="#ffffff"/>
-                <Button Style="{StaticResource pagingButton}" Content="3"/>
-
-                <TextBlock Text="..." Foreground="#6C7682" VerticalAlignment="Center" Margin="10 0" FontSize="15"/>
-
-                <Button Style="{StaticResource pagingButton}" Content="7"/>
-                <Button Style="{StaticResource pagingButton}" Content="8"/>
-                <Button Style="{StaticResource pagingButton}" Content="9"/>
-
-                <Rectangle Width="1" Fill="#DEE4EC" Margin="3 7"/>
-                <Button Style="{StaticResource pagingButton}">
-                    <Icon:PackIconMaterial Kind="ChevronRight" Style="{StaticResource pagingButtonIcon}"/>
-                </Button>
-            </StackPanel>
-        </Border>-->
-    
+        
     </Grid>
 </UserControl>

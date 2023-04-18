@@ -1,4 +1,5 @@
-﻿using Sales_Dashboard.Core;
+﻿using Microsoft.Win32.SafeHandles;
+using Sales_Dashboard.Core;
 using Sales_Dashboard.MVVM.Model;
 using System;
 using System.Collections.Generic;
@@ -164,7 +165,7 @@ namespace Sales_Dashboard.MVVM.ViewModel
             InstanciateCommands();
         }
 
-        #region Crud Functions
+        #region Loads
         public void LoadArticles()
         {
             using (StockFacturationContext context = new StockFacturationContext())
@@ -189,6 +190,9 @@ namespace Sales_Dashboard.MVVM.ViewModel
                 LstFournisseurs = new ObservableCollection<Fournisseur>(fournisseurs);
             }
         }
+        #endregion
+
+        #region Crud Functions
         private void Delete(object obj)
         {
             using (StockFacturationContext context = new StockFacturationContext())
